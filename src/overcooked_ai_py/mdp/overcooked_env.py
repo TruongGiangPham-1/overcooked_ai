@@ -2,8 +2,8 @@ import copy
 import time
 
 import cv2
-import gym
-import gymnasium
+#import gym
+import gymnasium as gym
 import numpy as np
 import pygame
 import tqdm
@@ -699,7 +699,7 @@ class OvercookedEnvPettingZoo(ParallelEnv):
             agent: self.observation_space(agent) for agent in self.agents
         }
         self.action_spaces = {
-            agent: gymnasium.spaces.Discrete(len(Action.ALL_ACTIONS))
+            agent: gym.spaces.Discrete(len(Action.ALL_ACTIONS))
             for agent in self.agents
         }
         # this is the AgentPair object
@@ -717,13 +717,13 @@ class OvercookedEnvPettingZoo(ParallelEnv):
         obs_shape = agent.featurize(dummy_state)[0].shape
         high = np.ones(obs_shape) * float("inf")
         low = np.zeros(obs_shape)
-        return gymnasium.spaces.Box(low, high, dtype=np.float32)
+        return gym.spaces.Box(low, high, dtype=np.float32)
 
     # we want to return the same space object every time
     @functools.lru_cache(maxsize=1)
     def action_space(self, agent):
         # the action space is the same for each agent
-        return gymnasium.spaces.Discrete(len(Action.ALL_ACTIONS))
+        return gym.spaces.Discrete(len(Action.ALL_ACTIONS))
 
     def step(self, joint_action):
         joint_action = [
