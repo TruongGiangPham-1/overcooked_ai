@@ -48,6 +48,7 @@ setup(
         "pygame",
         "ipywidgets",
         "opencv-python",
+        "pillow"
     ],
     # removed overlapping dependencies
     extras_require={
