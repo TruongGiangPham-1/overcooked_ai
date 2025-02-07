@@ -9,6 +9,7 @@ from overcooked_ai_py.agents.agent import AgentPair, FixedPlanAgent, RandomAgent
 import cv2
 def main():
     #print(gym.pprint_registry())
+    #mdp = OvercookedGridworld.from_layout_name("large_room")
     mdp = OvercookedGridworld.from_layout_name("cramped_room")
     base_env = OvercookedEnv.from_mdp(mdp, horizon=100)
     env = gym.make("Overcooked-v0",base_env = base_env, featurize_fn =base_env.featurize_state_mdp)
@@ -20,9 +21,10 @@ def main():
     frames = []
     for i in range(50):
         a = env.action_space.sample()
+        b = env.action_space.sample()
         print(f'action {a}')
         img = env.unwrapped.render()
-        env.unwrapped.step((a, a))
+        env.unwrapped.step((a, b))
         frames.append(Image.fromarray(img))
         #cv2.imshow('image',img)
         #cv2.waitKey(0)
